@@ -6,9 +6,9 @@ import {
   StyleSheet, 
   Keyboard,
   FlatList, 
-  TouchableOpacity, // Importante per i bordi dello schermo
-  Platform,     // Per gestire differenze iOS/Android
-  KeyboardAvoidingView // Per non far coprire l'input dalla tastiera
+  TouchableOpacity, 
+  Platform,     
+  KeyboardAvoidingView 
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Trash2, Plus } from 'lucide-react-native';
@@ -19,13 +19,11 @@ export default function App() {
   const [inputUser, setInputUser] = useState("");
   
   const addElement = () => {
-    // Trim rimuove gli spazi vuoti prima e dopo
     if(!inputUser || !inputUser.trim()){
       return;
     }
 
-    // Best Practice: Variabili const/let (non globali)
-    // Controllo Case-Insensitive (Banana = banana)
+
     const alreadyExists = shoppingList.some(
       e => e.name.toLowerCase() === inputUser.trim().toLowerCase()
     );
@@ -66,10 +64,8 @@ export default function App() {
        <Text style={styles.title}>Lista della Spesa 🛒</Text>
 
        <View style={styles.listContainer}>
-         {/* Usiamo ListEmptyComponent nativo della FlatList invece del ternario */}
          <FlatList
             data={shoppingList}
-            // Importante: le chiavi devono essere stringhe per evitare warning
             keyExtractor={(item) => item.id.toString()} 
             renderItem={({item}) => (
               <View style={styles.card}>
@@ -81,13 +77,12 @@ export default function App() {
             )}
             ListEmptyComponent={
               <View style={styles.emptyContainer}>
-                <Text style={styles.emptyText}>Nessun prodotto... inizia a scrivere!</Text>
+                <Text style={styles.emptyText}>Nessun prodotto... Aggiungi i tuoi prodotti!</Text>
               </View>
             }
          />
        </View>
 
-       {/* Area Input fissa in basso */}
        <View style={styles.inputContainer}>
           <TextInput 
             style={styles.input}
